@@ -7,11 +7,21 @@ show_meetings() {
   local module
 
   icon="$(get_tmux_option "@catppuccin_meetings_icon" "󰤙")"
-  color="$(get_tmux_option "@catppuccin_meetings_color" "$thm_blue")"
 
-  result="$($HOME/dotfiles/.config/tmux/scripts/cal.sh)"
+  result="$($HOME/.config/tmux/scripts/cal.sh)"
 
-  text="$(get_tmux_option "@catppuccin_meetings_text" "$result")"
+  meeting_color=$(echo "$result" | cut -d'|' -f1)
+  meeting_text=$(echo "$result" | cut -d'|' -f2-)
+
+  case "$meeting_color" in
+  "blue") color="$thm_blue" ;;
+  "yellow") color="$thm_yellow" ;;
+  "orange") color="$thm_peach" ;;
+  "red") color="$thm_red" ;;
+  *) color="$thm_blue" ;; # fallback
+  esac
+
+  text="$meeting_text"
 
   module=$(build_status_module "$index" "$icon" "$color" "$text")
 
