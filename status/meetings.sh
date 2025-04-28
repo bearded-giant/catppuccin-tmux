@@ -6,12 +6,19 @@ show_meetings() {
   local text
   local module
 
-  icon="$(get_tmux_option "@catppuccin_meetings_icon" "󰤙")"
-
   result="$($HOME/.config/tmux/scripts/cal.sh)"
 
   meeting_color=$(echo "$result" | cut -d'|' -f1)
   meeting_text=$(echo "$result" | cut -d'|' -f2-)
+
+  meeting_text_trimmed=$(echo "$meeting_text" | xargs)
+
+  if [ "$meeting_text_trimmed" = "Freedom" ]; then
+    icon="☕​"
+  else
+    # icon=""
+    icon="📹"
+  fi
 
   case "$meeting_color" in
   "blue") color="$thm_blue" ;;
@@ -21,7 +28,7 @@ show_meetings() {
   *) color="$thm_blue" ;; # fallback
   esac
 
-  text="$meeting_text"
+  text="$meeting_text_trimmed"
 
   module=$(build_status_module "$index" "$icon" "$color" "$text")
 
