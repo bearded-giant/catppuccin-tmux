@@ -28,7 +28,7 @@ show_meetings() {
   *) color="$thm_blue" ;; # fallback
   esac
 
-  text="$meeting_text_trimmed"
+  text="  $meeting_text_trimmed  "
 
   module=$(build_status_module "$index" "$icon" "$color" "$text")
 
