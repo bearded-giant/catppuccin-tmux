@@ -16,7 +16,7 @@ show_meetings() {
   if [ "$meeting_text_trimmed" = "Freedom" ]; then
     icon="☕​"
   else
-    # icon=""
+    # icon=""
     icon="📹"
   fi
 
